@@ -24,7 +24,7 @@ public class Payment {
     private Long BookingID;
     private double Amount;
     private Method PaymentMethod;
-    private Status PaymentStatus;
+    private PayStatus PaymentStatus;
     private Date PaidAt;
 
     // Default constructor
@@ -33,7 +33,7 @@ public class Payment {
 
     // Parameterized constructor
     public Payment(Long paymentID, Long bookingID, double amount, 
-                  Method paymentMethod, Status paymentStatus, Date paidAt) {
+                  Method paymentMethod, PayStatus paymentStatus, Date paidAt) {
         this.PaymentID = paymentID;
         this.BookingID = bookingID;
         this.Amount = amount;
@@ -59,7 +59,7 @@ public class Payment {
         return PaymentMethod;
     }
 
-    public Status getPaymentStatus() {
+    public PayStatus getPaymentStatus() {
         return PaymentStatus;
     }
 
@@ -84,7 +84,7 @@ public class Payment {
         this.PaymentMethod = paymentMethod;
     }
 
-    public void setPaymentStatus(Status paymentStatus) {
+    public void setPaymentStatus(PayStatus paymentStatus) {
         this.PaymentStatus = paymentStatus;
     }
 
