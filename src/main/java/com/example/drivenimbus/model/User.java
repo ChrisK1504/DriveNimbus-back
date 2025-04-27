@@ -25,7 +25,6 @@ public class User {
     private boolean isActive;
     private Date CreatedAt;
 
-
     public User() {
     }
 

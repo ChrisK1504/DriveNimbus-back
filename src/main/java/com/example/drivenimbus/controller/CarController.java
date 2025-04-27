@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/cars")
 public class CarController {
-    @GetMapping
-    public Car getCar() {
-        return new Car(1L, "Megan", "Benz");
-    }
+
+
+
 }
