@@ -1,9 +1,6 @@
 package com.example.drivenimbus.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -15,6 +12,7 @@ enum MaintanceStatus {
 @Entity
 public class Maintenance {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long MaintenanceID;
     private Date StartDate;
     private Date EndDate;

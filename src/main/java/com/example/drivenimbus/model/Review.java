@@ -1,6 +1,8 @@
 package com.example.drivenimbus.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -8,9 +10,10 @@ import java.util.Date;
 @Entity
 public class Review {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ReviewID;
     private String ReviewText;
-    private int Rating;
+    private Integer Rating;
     private Date CreatedAt;
 
     // Default constructor

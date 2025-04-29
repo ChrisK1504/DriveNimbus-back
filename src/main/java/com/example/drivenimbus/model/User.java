@@ -15,6 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long UserID;
+
     private String FullName;
     private String Email; // Unique
     private String PasswordHash;
@@ -24,13 +25,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role UserRole; // User || ADMIN
-    private boolean isActive;
+    private Boolean isActive;
     private Date CreatedAt;
 
     public User() {
     }
 
-    public User(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole, boolean isActive, Date createdAt) {
+    public User(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole, Boolean isActive, Date createdAt) {
         UserID = userID;
         FullName = fullName;
         Email = email;
@@ -107,11 +108,11 @@ public class User {
         UserRole = userRole;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 

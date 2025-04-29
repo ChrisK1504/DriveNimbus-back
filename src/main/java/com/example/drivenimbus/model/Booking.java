@@ -1,13 +1,18 @@
 package com.example.drivenimbus.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long BookingID;
 
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
@@ -17,9 +22,10 @@ public class Booking {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private Long BookingID;
-    private Date PickupDate;
-    private Date ReturnDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate PickupDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate ReturnDate;
 
     @Enumerated(EnumType.STRING)
     private Status BookingStatus;
@@ -30,7 +36,7 @@ public class Booking {
     }
 
     // Parameterized constructor
-    public Booking(User user, Car car,Long bookingID, Date pickupDate, Date returnDate,
+    public Booking(User user, Car car,Long bookingID, LocalDate pickupDate, LocalDate returnDate,
                   Status bookingStatus, Date createdAt) {
         this.user = user;
         this.car = car;
@@ -46,11 +52,11 @@ public class Booking {
         return BookingID;
     }
 
-    public Date getPickupDate() {
+    public LocalDate getPickupDate() {
         return PickupDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return ReturnDate;
     }
 
@@ -67,11 +73,11 @@ public class Booking {
         this.BookingID = bookingID;
     }
 
-    public void setPickupDate(Date pickupDate) {
+    public void setPickupDate(LocalDate pickupDate) {
         this.PickupDate = pickupDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.ReturnDate = returnDate;
     }
 

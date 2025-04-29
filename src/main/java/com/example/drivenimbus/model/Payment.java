@@ -1,9 +1,6 @@
 package com.example.drivenimbus.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -22,6 +19,7 @@ enum PayStatus {
 @Entity
 public class Payment {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long PaymentID;
     private Long BookingID;
     private double Amount;

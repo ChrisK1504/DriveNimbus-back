@@ -41,7 +41,7 @@ public class CarControllerMockTest {
 
         Mockito.when(carService.fetchCarList()).thenReturn(cars);
 
-        mockMvc.perform(get("/api/cars"))
+        mockMvc.perform(get("/cars"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(2))
                 .andExpect(jsonPath("$[0].brand").value("Toyota"));
@@ -53,7 +53,7 @@ public class CarControllerMockTest {
 
         Mockito.when(carService.saveCar(any(Car.class))).thenReturn(car);
 
-        mockMvc.perform(post("/api/cars")
+        mockMvc.perform(post("cars")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(car)))
                 .andExpect(status().isOk())
@@ -64,10 +64,11 @@ public class CarControllerMockTest {
     @Test
     void shouldDeleteCar() throws Exception {
         Long carId = 1L;
-        mockMvc.perform(delete("/api/cars/{id}", carId))
+        mockMvc.perform(delete("cars/{id}", carId))
                 .andExpect(status().isOk());
 
         Mockito.verify(carService).deleteCarById(carId);
+
     }
 
 

@@ -5,16 +5,16 @@ import jakarta.persistence.*;
 @Entity
 public class Car {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long CarID;
     private String Brand;
     private String Model;
-    private int Year;
+    private Integer Year;
 
     @Enumerated(EnumType.STRING)
     private Fuel FuelType;
-    private int Mileage;
-    private double Price;
+    private Integer Mileage;
+    private Double Price;
 
     @Enumerated(EnumType.STRING)
     private State Status;
@@ -26,8 +26,8 @@ public class Car {
     }
 
     // Parameterized constructor
-    public Car(Long carID, String brand, String model, int year, Fuel fuelType, 
-               int mileage, double price, State status, String imageURL, String description) {
+    public Car(Long carID, String brand, String model, Integer year, Fuel fuelType,
+               Integer mileage, Double price, State status, String imageURL, String description) {
         this.CarID = carID;
         this.Brand = brand;
         this.Model = model;
@@ -53,7 +53,7 @@ public class Car {
         return Model;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return Year;
     }
 
@@ -61,11 +61,11 @@ public class Car {
         return FuelType;
     }
 
-    public int getMileage() {
+    public Integer getMileage() {
         return Mileage;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return Price;
     }
 
