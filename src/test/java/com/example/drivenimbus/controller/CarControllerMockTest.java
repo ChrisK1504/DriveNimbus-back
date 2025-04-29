@@ -53,7 +53,7 @@ public class CarControllerMockTest {
 
         Mockito.when(carService.saveCar(any(Car.class))).thenReturn(car);
 
-        mockMvc.perform(post("cars")
+        mockMvc.perform(post("/cars")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(car)))
                 .andExpect(status().isOk())
@@ -64,7 +64,7 @@ public class CarControllerMockTest {
     @Test
     void shouldDeleteCar() throws Exception {
         Long carId = 1L;
-        mockMvc.perform(delete("cars/{id}", carId))
+        mockMvc.perform(delete("/cars/{id}", carId))
                 .andExpect(status().isOk());
 
         Mockito.verify(carService).deleteCarById(carId);
