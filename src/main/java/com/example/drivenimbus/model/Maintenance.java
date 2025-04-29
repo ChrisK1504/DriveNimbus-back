@@ -1,6 +1,8 @@
 package com.example.drivenimbus.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -16,6 +18,7 @@ public class Maintenance {
     private Long MaintenanceID;
     private Date StartDate;
     private Date EndDate;
+    @Enumerated(EnumType.STRING)
     private MaintanceStatus Status;
     private String Description;
 

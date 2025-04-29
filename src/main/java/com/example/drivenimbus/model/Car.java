@@ -1,30 +1,22 @@
 package com.example.drivenimbus.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-enum Fuel {
-    GASOLINE,
-    DIESEL,
-    ELECTRIC
-}
-
-enum State {
-    AVAILABLE,
-    BOOKED,
-    MAINTENANCE
-}
+import jakarta.persistence.*;
 
 @Entity
 public class Car {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long CarID;
     private String Brand;
     private String Model;
     private int Year;
+
+    @Enumerated(EnumType.STRING)
     private Fuel FuelType;
     private int Mileage;
     private double Price;
+
+    @Enumerated(EnumType.STRING)
     private State Status;
     private String ImageURL;
     private String Description;

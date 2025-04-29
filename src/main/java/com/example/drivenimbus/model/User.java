@@ -1,6 +1,8 @@
 package com.example.drivenimbus.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 
 import javax.swing.text.StyledEditorKit;
@@ -21,6 +23,8 @@ public class User {
     private String PhoneNumber;
     private String Address;
     private String ProfilePicture; // URL || file path
+
+    @Enumerated(EnumType.STRING)
     private Role UserRole; // User || ADMIN
     private boolean isActive;
     private Date CreatedAt;

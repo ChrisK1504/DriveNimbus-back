@@ -1,6 +1,8 @@
 package com.example.drivenimbus.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -17,6 +19,7 @@ public class Booking {
     private Long BookingID;
     private Date PickupDate;
     private Date ReturnDate;
+    @Enumerated(EnumType.STRING)
     private Status BookingStatus;
     private Date CreatedAt;
 

@@ -1,6 +1,8 @@
 package com.example.drivenimbus.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -23,7 +25,9 @@ public class Payment {
     private Long PaymentID;
     private Long BookingID;
     private double Amount;
+    @Enumerated(EnumType.STRING)
     private Method PaymentMethod;
+    @Enumerated(EnumType.STRING)
     private PayStatus PaymentStatus;
     private Date PaidAt;
 
