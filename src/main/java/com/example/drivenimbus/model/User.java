@@ -1,9 +1,6 @@
 package com.example.drivenimbus.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import javax.swing.text.StyledEditorKit;
 import java.util.Date;
@@ -16,6 +13,7 @@ enum Role {
 @Entity
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long UserID;
     private String FullName;
     private String Email; // Unique

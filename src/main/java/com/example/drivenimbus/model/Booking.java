@@ -1,24 +1,26 @@
 package com.example.drivenimbus.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
-
-enum Status {
-    PENDING,
-    CONFIRMED,
-    CANCELLED
-}
 
 @Entity
 public class Booking {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @ManyToOne
+    @JoinColumn(name = "car_id", nullable = false)
+    private Car car;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     private Long BookingID;
     private Date PickupDate;
     private Date ReturnDate;
+
     @Enumerated(EnumType.STRING)
     private Status BookingStatus;
     private Date CreatedAt;
@@ -28,8 +30,10 @@ public class Booking {
     }
 
     // Parameterized constructor
-    public Booking(Long bookingID, Date pickupDate, Date returnDate, 
+    public Booking(User user, Car car,Long bookingID, Date pickupDate, Date returnDate,
                   Status bookingStatus, Date createdAt) {
+        this.user = user;
+        this.car = car;
         this.BookingID = bookingID;
         this.PickupDate = pickupDate;
         this.ReturnDate = returnDate;
@@ -77,5 +81,21 @@ public class Booking {
 
     public void setCreatedAt(Date createdAt) {
         this.CreatedAt = createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }
