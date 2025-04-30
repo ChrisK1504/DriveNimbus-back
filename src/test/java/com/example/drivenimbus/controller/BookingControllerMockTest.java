@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,6 +42,8 @@ public class BookingControllerMockTest {
     //DELETE | /bookings/{id} | Cancel/delete a booking
 
     private Booking booking;
+    private Booking booking2;
+    private Booking booking3;
 
     @BeforeEach
     void setUp() {
@@ -48,9 +52,18 @@ public class BookingControllerMockTest {
         car.setModel("Yaris");
         car.setCarID(1L);
 
+        Car car2 = new Car();
+        car2.setBrand("Honda");
+        car2.setModel("Civic");
+        car2.setCarID(2L);
+
         Users user = new Users();
         user.setFullName("Chris");
         user.setUserID(1L);
+
+        Users user2 = new Users();
+        user2.setFullName("John");
+        user2.setUserID(2L);
 
         booking = new Booking();
         booking.setCar(car);
@@ -58,6 +71,21 @@ public class BookingControllerMockTest {
         booking.setBookingID(1L);
         booking.setPickupDate(LocalDate.of(2025, 5, 5));
         booking.setReturnDate(LocalDate.of(2025, 5, 10));
+
+        booking2 = new Booking();
+        booking2.setCar(car2);
+        booking2.setUser(user);
+        booking2.setBookingID(2L);
+        booking2.setPickupDate(LocalDate.of(2025, 2, 15));
+        booking2.setReturnDate(LocalDate.of(2025, 2, 20));
+
+        booking3 = new Booking();
+        booking3.setCar(car);
+        booking3.setUser(user2);
+        booking3.setBookingID(3L);
+        booking3.setPickupDate(LocalDate.of(2025, 5, 25));
+        booking3.setReturnDate(LocalDate.of(2025, 5, 30));
+
 
     }
 
@@ -101,35 +129,49 @@ public class BookingControllerMockTest {
         Mockito.verify(bookingService, Mockito.times(1)).deleteBookingById(bookingId);
     }
 
-//    @Test
-//    void shouldUpdateBooking() throws Exception {
-//        Long bookingId = 1L;
-//        Booking updatedBooking = new Booking();
-//        updatedBooking.setPickupDate(LocalDate.of(2025, 5, 15));
-//        updatedBooking.setReturnDate(LocalDate.of(2025, 5, 20));
-//        Mockito.when(bookingService.updateBooking(updatedBooking, bookingId)).thenReturn(updatedBooking);
-//
-//        mockMvc.perform(put("/bookings/{id}", bookingId).contentType("application/json").content(objectMapper.writeValueAsString(updatedBooking)))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.pickupDate").value("2025-05-15"))
-//                .andExpect(jsonPath("$.returnDate").value("2025-05-20"));
-//    }
+    @Test
+    void shouldUpdateBooking() throws Exception {
+        Long bookingId = 1L;
+        Booking updatedBooking = new Booking();
+        updatedBooking.setBookingID(1L);
+        updatedBooking.setPickupDate(LocalDate.of(2025, 5, 15));
+        updatedBooking.setReturnDate(LocalDate.of(2025, 5, 20));
+        Mockito.when(bookingService.updateBooking(any(Booking.class), eq(bookingId))).thenReturn(updatedBooking);
+
+        mockMvc.perform(put("/bookings/{id}", bookingId).contentType("application/json").content(objectMapper.writeValueAsString(updatedBooking)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.bookingID").value(1L))
+                .andExpect(jsonPath("$.PickupDate").value("2025-05-15"))
+                .andExpect(jsonPath("$.ReturnDate").value("2025-05-20"));
+    }
 
     //    HTTP Method | Endpoint | Purpose
 //    GET | /users/{userId}/bookings | List bookings for a specific user
 //    POST | /users/{userId}/bookings | Create a booking for a specific user
 //    GET | /users/{userId}/bookings/upcoming | View only future bookings
 
-//    @Test
-//    void shouldReturnBookingsByUserId() throws Exception {
-//        Long userId = 1L;
-//        List<Booking> bookings = List.of(booking);
-//
-//        Mockito.when(bookingService.fetchBookingsByUserId(userId)).thenReturn(bookings);
-//
-//        mockMvc.perform(get("/bookings/users/{userId}/bookings", userId))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$[0].car.brand").value("Toyota"));
-//    }
+    @Test
+    void shouldReturnBookingsByUserId() throws Exception {
+        Long userId = 1L;
+        List<Booking> bookings = List.of(booking,booking2);
 
+        Mockito.when(bookingService.fetchBookingsByUserId(userId)).thenReturn(bookings);
+
+        mockMvc.perform(get("/users/{userId}/bookings", userId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].car.brand").value("Toyota"))
+                .andExpect(jsonPath("$[1].car.brand").value("Honda"));
+    }
+
+    @Test
+    void shouldReturnBookingsByUserIdAndUpcoming() throws Exception {
+        Long userId = 1L;
+        List<Booking> bookings = List.of(booking);
+
+        Mockito.when(bookingService.fetchBookingsByUserIdAndUpcoming(userId)).thenReturn(bookings);
+
+        mockMvc.perform(get("/users/{userId}/bookings/upcoming", userId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].car.brand").value("Toyota"));
+    }
 }
