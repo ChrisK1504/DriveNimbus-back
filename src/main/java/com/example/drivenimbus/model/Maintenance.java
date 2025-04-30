@@ -2,20 +2,22 @@ package com.example.drivenimbus.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
-
-enum MaintanceStatus {
-    SCHEDULED,
-    COMPLETED
-}
 
 @Entity
 public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long MaintenanceID;
-    private Date StartDate;
-    private Date EndDate;
+
+    @ManyToOne
+    @JoinColumn(name = "car_id", nullable = false)
+    private Car car;
+
+    private LocalDate StartDate;
+    private LocalDate EndDate;
+
     @Enumerated(EnumType.STRING)
     private MaintanceStatus Status;
     private String Description;
@@ -25,7 +27,7 @@ public class Maintenance {
     }
 
     // Constructor with all fields
-    public Maintenance(Long maintenanceID, Date startDate, Date endDate, MaintanceStatus status, String description) {
+    public Maintenance(Long maintenanceID, LocalDate startDate, LocalDate endDate, MaintanceStatus status, String description) {
         MaintenanceID = maintenanceID;
         StartDate = startDate;
         EndDate = endDate;
@@ -41,19 +43,19 @@ public class Maintenance {
         MaintenanceID = maintenanceID;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return StartDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         StartDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return EndDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         EndDate = endDate;
     }
 
@@ -72,4 +74,12 @@ public class Maintenance {
     public void setDescription(String description) {
         Description = description;
     }
+
+    public Car getCar() {
+        return car;
+    }
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
 }

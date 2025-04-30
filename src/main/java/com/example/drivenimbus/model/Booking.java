@@ -20,7 +20,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Users user;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate PickupDate;
@@ -36,7 +36,7 @@ public class Booking {
     }
 
     // Parameterized constructor
-    public Booking(User user, Car car,Long bookingID, LocalDate pickupDate, LocalDate returnDate,
+    public Booking(Users user, Car car,Long bookingID, LocalDate pickupDate, LocalDate returnDate,
                   Status bookingStatus, Date createdAt) {
         this.user = user;
         this.car = car;
@@ -89,11 +89,11 @@ public class Booking {
         this.CreatedAt = createdAt;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

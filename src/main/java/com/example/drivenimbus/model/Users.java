@@ -2,16 +2,10 @@ package com.example.drivenimbus.model;
 
 import jakarta.persistence.*;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.Date;
 
-enum Role {
-    ADMIN,
-    USER
-}
-
 @Entity
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long UserID;
@@ -28,10 +22,10 @@ public class User {
     private Boolean isActive;
     private Date CreatedAt;
 
-    public User() {
+    public Users() {
     }
 
-    public User(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole, Boolean isActive, Date createdAt) {
+    public Users(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole, Boolean isActive, Date createdAt) {
         UserID = userID;
         FullName = fullName;
         Email = email;

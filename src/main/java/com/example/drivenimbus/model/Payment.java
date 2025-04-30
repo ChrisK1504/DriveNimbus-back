@@ -4,25 +4,18 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-enum Method {
-    CASH,
-    CREDIT_CARD,
-    DEBIT_CARD,
-    PAYPAL,
-}
-
-enum PayStatus {
-    SUCCESS,
-    FAILED
-}
-
 @Entity
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long PaymentID;
-    private Long BookingID;
+
+    @OneToOne
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Booking booking;
+
     private double Amount;
+
     @Enumerated(EnumType.STRING)
     private Method PaymentMethod;
     @Enumerated(EnumType.STRING)
@@ -34,10 +27,10 @@ public class Payment {
     }
 
     // Parameterized constructor
-    public Payment(Long paymentID, Long bookingID, double amount, 
+    public Payment(Long paymentID, Booking booking, Double amount,
                   Method paymentMethod, PayStatus paymentStatus, Date paidAt) {
         this.PaymentID = paymentID;
-        this.BookingID = bookingID;
+        this.booking = booking;
         this.Amount = amount;
         this.PaymentMethod = paymentMethod;
         this.PaymentStatus = paymentStatus;
@@ -49,8 +42,8 @@ public class Payment {
         return PaymentID;
     }
 
-    public Long getBookingID() {
-        return BookingID;
+    public Booking getBooking() {
+        return booking;
     }
 
     public double getAmount() {
@@ -74,8 +67,8 @@ public class Payment {
         this.PaymentID = paymentID;
     }
 
-    public void setBookingID(Long bookingID) {
-        this.BookingID = bookingID;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     public void setAmount(double amount) {

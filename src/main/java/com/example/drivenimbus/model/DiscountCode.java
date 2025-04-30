@@ -1,10 +1,8 @@
 package com.example.drivenimbus.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -13,9 +11,13 @@ public class DiscountCode {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long CodeID;
 
+    @ManyToOne
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Booking booking;
+
     private String DiscountCode;
     private Double DiscountAmount;
-    private Date ExpiryDate;
+    private LocalDate ExpiryDate;
     private Boolean IsActive;
 
     // Default constructor
@@ -23,7 +25,7 @@ public class DiscountCode {
     }
 
     // Constructor with all fields
-    public DiscountCode(Long codeID, String discountCode, Double discountAmount, Date expiryDate, Boolean isActive) {
+    public DiscountCode(Long codeID, String discountCode, Double discountAmount, LocalDate expiryDate, Boolean isActive) {
         CodeID = codeID;
         DiscountCode = discountCode;
         DiscountAmount = discountAmount;
@@ -55,11 +57,11 @@ public class DiscountCode {
         DiscountAmount = discountAmount;
     }
 
-    public Date getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return ExpiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         ExpiryDate = expiryDate;
     }
 
@@ -69,5 +71,13 @@ public class DiscountCode {
 
     public void setIsActive(Boolean isActive) {
         IsActive = isActive;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 }

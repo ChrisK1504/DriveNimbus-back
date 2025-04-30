@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -53,6 +55,21 @@ public class BookingController {
         return booking != null ? ResponseEntity.ok(booking) : ResponseEntity.notFound().build();
     }
 
+//    HTTP Method | Endpoint | Purpose
+//    GET | /users/{userId}/bookings | List bookings for a specific user
+//    GET | /users/{userId}/bookings/upcoming | View only future bookings
+
+//    @GetMapping("/users/{userId}/bookings")
+//    public ResponseEntity<Iterable<Booking>> getBookingsByUserId(@PathVariable Long userId) {
+//        List<Booking> bookings = bookingService.fetchBookingsByUserId(userId);
+//        return bookings.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookings);
+//    }
+//
+//    @GetMapping("/users/{userId}/bookings/upcoming")
+//    public ResponseEntity<Iterable<Booking>> getBookingsByUserIdAndUpcoming(@PathVariable Long userId) {
+//        List<Booking> bookings = bookingService.fetchBookingsByUserIdAndUpcoming(userId);
+//        return bookings.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookings);
+//    }
 
 
 }

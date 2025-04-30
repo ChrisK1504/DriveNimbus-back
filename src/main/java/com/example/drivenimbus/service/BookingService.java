@@ -42,4 +42,12 @@ public class BookingService {
             return bookingRepository.save(booking);
         }).orElse(null);
     }
+
+//    public List<Booking> fetchBookingsByUserId(Long userId) {
+//        return bookingRepository.findByUserId(userId);
+//    }
+//
+//    public List<Booking> fetchBookingsByUserIdAndUpcoming(Long userId) {
+//        return bookingRepository.findByUserUserIDAndPickupDateAfter(userId, java.time.LocalDate.now());
+//    }
 }
