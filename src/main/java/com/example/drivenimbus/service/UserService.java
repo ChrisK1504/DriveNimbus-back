@@ -52,7 +52,7 @@ public class UserService {
         user.setProfilePicture(null);
 
         userRepository.save(user);
-        // sendConfirmationEmail(user.getEmail(), token)
+        sendConfirmationEmail(user.getEmail(), token);
     }
 
     private void sendConfirmationEmail(String email, String token) {
@@ -90,6 +90,50 @@ public class UserService {
         }
     }
 
+    public boolean changePasswordRequest(String email) {
+        Optional<Users> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) {
+            return false;
+        }
+        Users user = userOpt.get();
+
+        String token = UUID.randomUUID().toString();
+        user.setVerificationToken(token);
+        userRepository.save(user);
+        sendResetPasswordEmail(email, token);
+        return true;
+    }
+
+    private void sendResetPasswordEmail(String email, String token) {
+        String resetUrl = "http://localhost:8080/password-reset/verify?token=" + token;
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Reset your password");
+        message.setText("To reset your password, please click on the link below:\n" + resetUrl);
+        mailSender.send(message);
+    }
+
+    public boolean verifyToken(String token) {
+        Optional<Users> userOpt = userRepository.findByVerificationToken(token);
+        if (userOpt.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public void resetPassword(String token, String password) {
+        Optional<Users> userOpt = userRepository.findByVerificationToken(token);
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("Invalid token or expired");
+        }
+        Users user = userOpt.get();
+        String newHashedPassword = passwordEncoder.encode(password);
+        user.setPasswordHash(newHashedPassword);
+        user.setVerificationToken(null);
+        userRepository.save(user);
+    }
+
+
     public List<Users> fetchAllUsers() {
         return (List<Users>) userRepository.findAll();
     }
@@ -109,6 +153,8 @@ public class UserService {
         }
         return false;
     }
+
+
 
     public Users updateUser(Long userId, Users updatedUser) {
         return userRepository.findById(userId).map(user -> {
