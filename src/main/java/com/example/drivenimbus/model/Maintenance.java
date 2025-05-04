@@ -12,7 +12,7 @@ public class Maintenance {
     private Long MaintenanceID;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", nullable = false)
+    @JoinColumn(name = "carID", nullable = false)
     private Car car;
 
     private LocalDate StartDate;

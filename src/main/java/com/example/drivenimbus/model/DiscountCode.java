@@ -12,7 +12,7 @@ public class DiscountCode {
     private Long CodeID;
 
     @ManyToOne
-    @JoinColumn(name = "booking_id", nullable = false)
+    @JoinColumn(name = "bookingID", nullable = false)
     private Booking booking;
 
     private String DiscountCode;

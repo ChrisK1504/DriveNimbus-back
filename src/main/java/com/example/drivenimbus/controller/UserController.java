@@ -1,7 +1,9 @@
 package com.example.drivenimbus.controller;
 
+import com.example.drivenimbus.dto.UserRegistrationRequestDTO;
 import com.example.drivenimbus.model.Users;
 import com.example.drivenimbus.service.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +42,5 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
-
-
 
 }

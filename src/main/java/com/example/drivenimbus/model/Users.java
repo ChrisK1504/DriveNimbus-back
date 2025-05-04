@@ -22,12 +22,18 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Role UserRole; // User || ADMIN
     private Boolean isActive;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date CreatedAt;
+
+    private Boolean emailVerified;
+    private String verificationToken; // UUID or random string for email confirmation
+
 
     public Users() {
     }
 
-    public Users(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole, Boolean isActive, Date createdAt) {
+    public Users(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole) {
         UserID = userID;
         FullName = fullName;
         Email = email;
@@ -36,8 +42,10 @@ public class Users {
         Address = address;
         ProfilePicture = profilePicture;
         UserRole = userRole;
-        this.isActive = isActive;
-        CreatedAt = createdAt;
+        this.isActive = false;
+        CreatedAt = new Date();
+        emailVerified = false;
+        verificationToken = null;
     }
 
     public Long getUserID() {
@@ -118,5 +126,17 @@ public class Users {
 
     public void setCreatedAt(Date createdAt) {
         CreatedAt = createdAt;
+    }
+    public Boolean getEmailVerified() {
+        return emailVerified;
+    }
+    public void setEmailVerified(Boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
     }
 }

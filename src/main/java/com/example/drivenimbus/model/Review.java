@@ -11,11 +11,11 @@ public class Review {
     private Long ReviewID;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", nullable = false)
+    @JoinColumn(name = "carID", nullable = false)
     private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "userID", nullable = false)
     private Users user;
 
     private String ReviewText;
