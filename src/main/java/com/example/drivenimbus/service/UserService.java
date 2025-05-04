@@ -155,7 +155,6 @@ public class UserService {
     }
 
 
-
     public Users updateUser(Long userId, Users updatedUser) {
         return userRepository.findById(userId).map(user -> {
             user.setFullName(updatedUser.getFullName());
