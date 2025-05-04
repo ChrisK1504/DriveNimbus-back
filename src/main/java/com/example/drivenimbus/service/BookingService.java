@@ -44,7 +44,7 @@ public class BookingService {
     }
 
     public List<Booking> fetchBookingsByUserId(Long userId) {
-        return bookingRepository.findByUserId(userId);
+        return bookingRepository.findByUserUserId(userId);
     }
 
     public List<Booking> fetchBookingsByUserIdAndUpcoming(Long userId) {

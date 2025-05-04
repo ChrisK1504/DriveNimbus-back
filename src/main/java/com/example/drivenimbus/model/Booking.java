@@ -15,11 +15,11 @@ public class Booking {
     private Long BookingID;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", nullable = false)
+    @JoinColumn(name = "carID", nullable = false)
     private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "userID", nullable = false)
     private Users user;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

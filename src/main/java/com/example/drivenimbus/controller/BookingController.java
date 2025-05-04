@@ -72,6 +72,7 @@ public class BookingController {
     }
 
 
+    @Operation(summary = "View only future bookings of a specific user")
     @GetMapping("/users/{userId}/bookings/upcoming")
     public ResponseEntity<Iterable<Booking>> getBookingsByUserIdAndUpcoming(@PathVariable Long userId) {
         List<Booking> bookings = bookingService.fetchBookingsByUserIdAndUpcoming(userId);

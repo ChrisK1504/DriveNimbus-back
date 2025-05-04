@@ -11,6 +11,8 @@ public class Users {
     private Long UserID;
 
     private String FullName;
+
+    @Column(unique = true)
     private String Email; // Unique
     private String PasswordHash;
     private String PhoneNumber;
