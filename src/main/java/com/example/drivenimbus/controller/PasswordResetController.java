@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -16,9 +15,6 @@ import java.util.Map;
 public class PasswordResetController {
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Order(2)
     @Operation(summary = "Handle an incoming password reset request")

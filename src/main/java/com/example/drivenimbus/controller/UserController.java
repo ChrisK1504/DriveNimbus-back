@@ -23,39 +23,40 @@ public class UserController {
 //    PUT | /users/{id} | Update a user's details
 //    DELETE | /users/{id} | Delete a user
 
-    @Order(1)
+
     @Operation(summary = "Fetch all users // ADMIN")
+    @Order(1)
     @GetMapping
     public ResponseEntity<List<Users>> getAllUsers() {
         return ResponseEntity.ok(userService.fetchAllUsers());
     }
 
-    @Order(2)
     @Operation(summary = "Fetch user by userID // ADMIN")
+    @Order(2)
     @GetMapping("/{userId}")
     public ResponseEntity<Users> getUserById(@PathVariable Long userId) {
         Users user = userService.fetchUserById(userId);
         return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 
-    @Order(6)
     @Operation(summary = "Create a new user // ADMIN")
+    @Order(6)
     @PostMapping
     public ResponseEntity<Users> saveUser(@RequestBody Users user) {
         userService.saveUser(user);
         return ResponseEntity.status(201).body(user);
     }
 
-    @Order(4)
     @Operation(summary = "Update user's details // ADMIN")
+    @Order(4)
     @PutMapping("/{userId}")
     public ResponseEntity<Users> updateUser(@RequestBody Users updatedUser, @PathVariable Long userId) {
         userService.updateUser(userId, updatedUser);
         return ResponseEntity.ok(updatedUser);
     }
 
-    @Order(3)
     @Operation(summary = "Delete user by userID // ADMIN")
+    @Order(3)
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUserById(@PathVariable Long userId) {
         if (userService.deleteUserById(userId)) {
@@ -64,8 +65,8 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @Order(5)
     @PutMapping("/{userId}/deactivate")
+    @Order(5)
     public ResponseEntity<String> deactivateUserById(@PathVariable Long userId) {
         boolean deactivationSuccess = userService.deactivateUser(userId);
         return deactivationSuccess ? ResponseEntity.ok("User deactivated") : ResponseEntity.notFound().build();

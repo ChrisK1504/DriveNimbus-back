@@ -4,7 +4,6 @@ import com.example.drivenimbus.model.Car;
 import com.example.drivenimbus.service.CarService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/cars")
 public class CarController {
-    @Autowired private CarService carService;
+    @Autowired 
+    private CarService carService;
 
     @Order(1)
     @Operation(summary = "Get all cars")

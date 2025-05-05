@@ -74,7 +74,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void confirmLogin(UserLoginDTO loginRequest) {
+    public Users confirmLogin(UserLoginDTO loginRequest) {
         Optional<Users> userOpt = userRepository.findByemail(loginRequest.getEmail());
         if (userOpt.isEmpty()) {
             throw new RuntimeException("Invalid email or password");
@@ -88,6 +88,8 @@ public class UserService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPasswordHash())) {
             throw new RuntimeException("Invalid email or password");
         }
+
+        return user;
     }
 
     public boolean changePasswordRequest(String email) {

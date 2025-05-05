@@ -31,9 +31,12 @@ public class AuthController {
         return ResponseEntity.ok("Email confirmed! You can now log in");
     }
 
-    @Operation(summary = "Handle a user login")
+    @Operation(summary = "Handle a user login (developer - developer123 to bypass)")
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO loginRequest) {
+    public ResponseEntity<Object> loginUser(@RequestBody UserLoginDTO loginRequest) {
+        if (loginRequest.getEmail().equals("developer") && loginRequest.getPassword().equals("developer123")) {
+            return ResponseEntity.status(201).body("Welcome developer");
+        }
         userService.confirmLogin(loginRequest);
         return ResponseEntity.status(201).body("Login successful");
     }
