@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class DiscountCode {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long codeID;
+    private Long codeId;
 
     @ManyToOne
 //    @JoinColumn(name = "bookingID", nullable = false)
@@ -24,20 +24,20 @@ public class DiscountCode {
     }
 
     // Constructor with all fields
-    public DiscountCode(Long codeID, String discountCode, Double discountAmount, LocalDate expiryDate, Boolean isActive) {
-        this.codeID = codeID;
+    public DiscountCode(Long codeId, String discountCode, Double discountAmount, LocalDate expiryDate, Boolean isActive) {
+        this.codeId = codeId;
         this.discountCode = discountCode;
         this.discountAmount = discountAmount;
         this.expiryDate = expiryDate;
         this.isActive = isActive;
     }
 
-    public Long getCodeID() {
-        return codeID;
+    public Long getCodeId() {
+        return codeId;
     }
 
-    public void setCodeID(Long codeID) {
-        this.codeID = codeID;
+    public void setCodeId(Long codeID) {
+        this.codeId = codeID;
     }
 
     public String getDiscountCode() {

@@ -8,7 +8,7 @@ import java.util.Date;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long paymentID;
+    private Long paymentId;
 
     @OneToOne
 //    @JoinColumn(name = "bookingID", nullable = false)
@@ -27,9 +27,9 @@ public class Payment {
     }
 
     // Parameterized constructor
-    public Payment(Long paymentID, Booking booking, Double amount,
-                  Method paymentMethod, PayStatus paymentStatus, Date paidAt) {
-        this.paymentID = paymentID;
+    public Payment(Long paymentId, Booking booking, Double amount,
+                   Method paymentMethod, PayStatus paymentStatus, Date paidAt) {
+        this.paymentId = paymentId;
         this.booking = booking;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
@@ -38,8 +38,8 @@ public class Payment {
     }
 
     // Getters
-    public Long getPaymentID() {
-        return paymentID;
+    public Long getPaymentId() {
+        return paymentId;
     }
 
     public Booking getBooking() {
@@ -63,8 +63,8 @@ public class Payment {
     }
 
     // Setters
-    public void setPaymentID(Long paymentID) {
-        this.paymentID = paymentID;
+    public void setPaymentId(Long paymentID) {
+        this.paymentId = paymentID;
     }
 
     public void setBooking(Booking booking) {

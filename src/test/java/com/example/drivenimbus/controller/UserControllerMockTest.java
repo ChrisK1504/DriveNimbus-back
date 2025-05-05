@@ -34,11 +34,11 @@ public class UserControllerMockTest {
     void setUp() {
         Users user = new Users();
         user.setFullName("Chris");
-        user.setUserID(1L);
+        user.setUserId(1L);
 
         Users user2 = new Users();
         user2.setFullName("John");
-        user2.setUserID(2L);
+        user2.setUserId(2L);
 
         users = List.of(user,user2);
     }

@@ -59,11 +59,11 @@ public class BookingService {
     }
 
     public List<Booking> fetchBookingsByUserId(Long userId) {
-        return bookingRepository.findByUserUserID(userId);
+        return bookingRepository.findByUserUserId(userId);
     }
 
     public List<Booking> fetchBookingsByUserIdAndUpcoming(Long userId) {
-        return bookingRepository.findByUserUserIDAndPickupDateAfter(userId, java.time.LocalDate.now());
+        return bookingRepository.findByUserUserIdAndPickupDateAfter(userId, java.time.LocalDate.now());
     }
 
     public boolean approveBooking(Long bookingId) {

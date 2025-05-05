@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long maintenanceID;
+    private Long maintenanceId;
 
     @ManyToOne
 //    @JoinColumn(name = "car_id", nullable = false)
@@ -26,20 +26,20 @@ public class Maintenance {
     }
 
     // Constructor with all fields
-    public Maintenance(Long maintenanceID, LocalDate startDate, LocalDate endDate, MaintanceStatus status, String description) {
-        this.maintenanceID = maintenanceID;
+    public Maintenance(Long maintenanceId, LocalDate startDate, LocalDate endDate, MaintanceStatus status, String description) {
+        this.maintenanceId = maintenanceId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
         this.description = description;
     }
 
-    public Long getMaintenanceID() {
-        return maintenanceID;
+    public Long getMaintenanceId() {
+        return maintenanceId;
     }
 
-    public void setMaintenanceID(Long maintenanceID) {
-        this.maintenanceID = maintenanceID;
+    public void setMaintenanceId(Long maintenanceID) {
+        this.maintenanceId = maintenanceID;
     }
 
     public LocalDate getStartDate() {

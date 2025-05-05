@@ -8,7 +8,7 @@ import java.util.Date;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ReviewID;
+    private Long reviewId;
 
     @ManyToOne
 //    @JoinColumn(name = "carID", nullable = false)
@@ -27,16 +27,16 @@ public class Review {
     }
 
     // Parameterized constructor
-    public Review(Long reviewID, String reviewText, int rating) {
-        this.ReviewID = reviewID;
+    public Review(Long reviewId, String reviewText, int rating) {
+        this.reviewId = reviewId;
         this.reviewText = reviewText;
         this.rating = rating;
         this.createdAt = new Date();
     }
 
     // Getters
-    public Long getReviewID() {
-        return ReviewID;
+    public Long getReviewId() {
+        return reviewId;
     }
 
     public String getReviewText() {
@@ -52,8 +52,8 @@ public class Review {
     }
 
     // Setters
-    public void setReviewID(Long reviewID) {
-        this.ReviewID = reviewID;
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
     }
 
     public void setReviewText(String reviewText) {

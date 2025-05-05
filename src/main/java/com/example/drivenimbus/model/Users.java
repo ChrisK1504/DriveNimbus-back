@@ -8,7 +8,7 @@ import java.util.Date;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userID;
+    private Long userId;
 
     private String fullName;
 
@@ -33,8 +33,8 @@ public class Users {
     public Users() {
     }
 
-    public Users(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole) {
-        this.userID = userID;
+    public Users(Long userId, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole) {
+        this.userId = userId;
         this.fullName= fullName;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -48,12 +48,12 @@ public class Users {
         verificationToken = null;
     }
 
-    public Long getUserID() {
-        return userID;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setUserId(Long userID) {
+        this.userId = userID;
     }
 
     public String getFullName() {
