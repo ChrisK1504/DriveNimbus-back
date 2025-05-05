@@ -6,119 +6,120 @@ import jakarta.persistence.*;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long CarID;
-    private String Brand;
-    private String Model;
-    private Integer Year;
+    private Long carId;
+
+    private String brand;
+    private String model;
+    private Integer year;
 
     @Enumerated(EnumType.STRING)
-    private Fuel FuelType;
-    private Integer Mileage;
-    private Double Price;
+    private Fuel fuelType;
+    private Integer mileage;
+    private Double price;
 
     @Enumerated(EnumType.STRING)
-    private State Status;
-    private String ImageURL;
-    private String Description;
+    private State status;
+    private String imageURL;
+    private String description;
 
     // Default constructor
     public Car() {
     }
 
     // Parameterized constructor
-    public Car(Long carID, String brand, String model, Integer year, Fuel fuelType,
+    public Car(Long carId, String brand, String model, Integer year, Fuel fuelType,
                Integer mileage, Double price, State status, String imageURL, String description) {
-        this.CarID = carID;
-        this.Brand = brand;
-        this.Model = model;
-        this.Year = year;
-        this.FuelType = fuelType;
-        this.Mileage = mileage;
-        this.Price = price;
-        this.Status = status;
-        this.ImageURL = imageURL;
-        this.Description = description;
+        this.carId = carId;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.fuelType = fuelType;
+        this.mileage = mileage;
+        this.price = price;
+        this.status = status;
+        this.imageURL = imageURL;
+        this.description = description;
     }
 
     // Getters
-    public Long getCarID() {
-        return CarID;
+    public Long getCarId() {
+        return carId;
     }
 
     public String getBrand() {
-        return Brand;
+        return brand;
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
 
     public Integer getYear() {
-        return Year;
+        return year;
     }
 
     public Fuel getFuelType() {
-        return FuelType;
+        return fuelType;
     }
 
     public Integer getMileage() {
-        return Mileage;
+        return mileage;
     }
 
     public Double getPrice() {
-        return Price;
+        return price;
     }
 
     public State getStatus() {
-        return Status;
+        return status;
     }
 
     public String getImageURL() {
-        return ImageURL;
+        return imageURL;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     // Setters
-    public void setCarID(Long carID) {
-        this.CarID = carID;
+    public void setCarId(Long carID) {
+        this.carId = carID;
     }
 
     public void setBrand(String brand) {
-        this.Brand = brand;
+        this.brand = brand;
     }
 
     public void setModel(String model) {
-        this.Model = model;
+        this.model = model;
     }
 
     public void setYear(int year) {
-        this.Year = year;
+        this.year = year;
     }
 
     public void setFuelType(Fuel fuelType) {
-        this.FuelType = fuelType;
+        this.fuelType = fuelType;
     }
 
     public void setMileage(int mileage) {
-        this.Mileage = mileage;
+        this.mileage = mileage;
     }
 
     public void setPrice(double price) {
-        this.Price = price;
+        this.price = price;
     }
 
     public void setStatus(State status) {
-        this.Status = status;
+        this.status = status;
     }
 
     public void setImageURL(String imageURL) {
-        this.ImageURL = imageURL;
+        this.imageURL = imageURL;
     }
 
     public void setDescription(String description) {
-        this.Description = description;
+        this.description = description;
     }
 }

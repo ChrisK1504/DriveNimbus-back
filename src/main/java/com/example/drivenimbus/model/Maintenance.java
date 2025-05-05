@@ -3,24 +3,23 @@ package com.example.drivenimbus.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long MaintenanceID;
+    private Long maintenanceID;
 
     @ManyToOne
-    @JoinColumn(name = "carID", nullable = false)
+//    @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
-    private LocalDate StartDate;
-    private LocalDate EndDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
-    private MaintanceStatus Status;
-    private String Description;
+    private MaintanceStatus status;
+    private String description;
 
     // Default constructor
     public Maintenance() {
@@ -28,51 +27,51 @@ public class Maintenance {
 
     // Constructor with all fields
     public Maintenance(Long maintenanceID, LocalDate startDate, LocalDate endDate, MaintanceStatus status, String description) {
-        MaintenanceID = maintenanceID;
-        StartDate = startDate;
-        EndDate = endDate;
-        Status = status;
-        Description = description;
+        this.maintenanceID = maintenanceID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.description = description;
     }
 
     public Long getMaintenanceID() {
-        return MaintenanceID;
+        return maintenanceID;
     }
 
     public void setMaintenanceID(Long maintenanceID) {
-        MaintenanceID = maintenanceID;
+        this.maintenanceID = maintenanceID;
     }
 
     public LocalDate getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
     public void setStartDate(LocalDate startDate) {
-        StartDate = startDate;
+        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
-        return EndDate;
+        return endDate;
     }
 
     public void setEndDate(LocalDate endDate) {
-        EndDate = endDate;
+        this.endDate = endDate;
     }
 
     public MaintanceStatus getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(MaintanceStatus status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public Car getCar() {

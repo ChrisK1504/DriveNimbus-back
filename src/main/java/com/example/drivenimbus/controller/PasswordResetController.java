@@ -2,6 +2,7 @@ package com.example.drivenimbus.controller;
 
 
 import com.example.drivenimbus.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,7 @@ public class PasswordResetController {
     private BCryptPasswordEncoder passwordEncoder;
 
 
+    @Operation(summary = "Handle an incoming password reset request")
     @PostMapping("/request")
     public ResponseEntity<String> changePasswordRequest(@RequestBody Map<String, String> email) {
         String emailAddress = email.get("email");
@@ -32,6 +34,7 @@ public class PasswordResetController {
         return ResponseEntity.badRequest().body("Email address not found");
     }
 
+    @Operation(summary = "Verify a password reset token")
     @GetMapping("/verify")
     public ResponseEntity<String> verifyToken(@RequestParam String token) {
         if (userService.verifyToken( token )) {
@@ -40,6 +43,7 @@ public class PasswordResetController {
         return ResponseEntity.badRequest().body("Invalid token or expired");
     }
 
+    @Operation(summary = "Reset a user's password")
     @PostMapping("/submit")
     public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> passwordReset) {
         String token = passwordReset.get("token");

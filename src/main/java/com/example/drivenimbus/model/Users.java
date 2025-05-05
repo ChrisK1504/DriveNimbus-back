@@ -8,23 +8,23 @@ import java.util.Date;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long UserID;
+    private Long userID;
 
-    private String FullName;
+    private String fullName;
 
     @Column(unique = true)
-    private String Email; // Unique
-    private String PasswordHash;
-    private String PhoneNumber;
-    private String Address;
-    private String ProfilePicture; // URL || file path
+    private String email; // Unique
+    private String passwordHash;
+    private String phoneNumber;
+    private String address;
+    private String profilePicture; // URL || file path
 
     @Enumerated(EnumType.STRING)
-    private Role UserRole; // User || ADMIN
+    private Role userRole; // User || ADMIN
     private Boolean isActive;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date CreatedAt;
+    private Date createdAt;
 
     private Boolean emailVerified;
     private String verificationToken; // UUID or random string for email confirmation
@@ -34,82 +34,82 @@ public class Users {
     }
 
     public Users(Long userID, String fullName, String email, String passwordHash, String phoneNumber, String address, String profilePicture, Role userRole) {
-        UserID = userID;
-        FullName = fullName;
-        Email = email;
-        PasswordHash = passwordHash;
-        PhoneNumber = phoneNumber;
-        Address = address;
-        ProfilePicture = profilePicture;
-        UserRole = userRole;
+        this.userID = userID;
+        this.fullName= fullName;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.profilePicture = profilePicture;
+        this.userRole = userRole;
         this.isActive = false;
-        CreatedAt = new Date();
+        createdAt = new Date();
         emailVerified = false;
         verificationToken = null;
     }
 
     public Long getUserID() {
-        return UserID;
+        return userID;
     }
 
     public void setUserID(Long userID) {
-        UserID = userID;
+        this.userID = userID;
     }
 
     public String getFullName() {
-        return FullName;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-        FullName = fullName;
+         this.fullName = fullName;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getPasswordHash() {
-        return PasswordHash;
+        return passwordHash;
     }
 
     public void setPasswordHash(String passwordHash) {
-        PasswordHash = passwordHash;
+        this.passwordHash = passwordHash;
     }
 
     public String getPhoneNumber() {
-        return PhoneNumber;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getProfilePicture() {
-        return ProfilePicture;
+        return profilePicture;
     }
 
     public void setProfilePicture(String profilePicture) {
-        ProfilePicture = profilePicture;
+        this.profilePicture = profilePicture;
     }
 
     public Role getUserRole() {
-        return UserRole;
+        return userRole;
     }
 
     public void setUserRole(Role userRole) {
-        UserRole = userRole;
+        this.userRole = userRole;
     }
 
     public Boolean isActive() {
@@ -121,11 +121,11 @@ public class Users {
     }
 
     public Date getCreatedAt() {
-        return CreatedAt;
+        return createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
-        CreatedAt = createdAt;
+        this.createdAt = createdAt;
     }
     public Boolean getEmailVerified() {
         return emailVerified;

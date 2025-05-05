@@ -11,27 +11,27 @@ public class Review {
     private Long ReviewID;
 
     @ManyToOne
-    @JoinColumn(name = "carID", nullable = false)
+//    @JoinColumn(name = "carID", nullable = false)
     private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+//    @JoinColumn(name = "userID", nullable = false)
     private Users user;
 
-    private String ReviewText;
-    private Integer Rating;
-    private Date CreatedAt;
+    private String reviewText;
+    private Integer rating;
+    private Date createdAt;
 
     // Default constructor
     public Review() {
     }
 
     // Parameterized constructor
-    public Review(Long reviewID, String reviewText, int rating, Date createdAt) {
+    public Review(Long reviewID, String reviewText, int rating) {
         this.ReviewID = reviewID;
-        this.ReviewText = reviewText;
-        this.Rating = rating;
-        this.CreatedAt = createdAt;
+        this.reviewText = reviewText;
+        this.rating = rating;
+        this.createdAt = new Date();
     }
 
     // Getters
@@ -40,15 +40,15 @@ public class Review {
     }
 
     public String getReviewText() {
-        return ReviewText;
+        return reviewText;
     }
 
     public int getRating() {
-        return Rating;
+        return rating;
     }
 
     public Date getCreatedAt() {
-        return CreatedAt;
+        return createdAt;
     }
 
     // Setters
@@ -57,15 +57,15 @@ public class Review {
     }
 
     public void setReviewText(String reviewText) {
-        this.ReviewText = reviewText;
+        this.reviewText = reviewText;
     }
 
     public void setRating(int rating) {
-        this.Rating = rating;
+        this.rating = rating;
     }
 
     public void setCreatedAt(Date createdAt) {
-        this.CreatedAt = createdAt;
+        this.createdAt = createdAt;
     }
 
     public Car getCar() {

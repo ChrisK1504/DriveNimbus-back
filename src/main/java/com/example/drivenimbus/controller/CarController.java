@@ -27,7 +27,7 @@ public class CarController {
         return car != null ? ResponseEntity.ok(car) : ResponseEntity.notFound().build();
     }
 
-    @Operation(summary = "Delete a car by ID // Admin")
+    @Operation(summary = "Delete a car by ID // ADMIN")
     @DeleteMapping("/{carId}")
     public ResponseEntity<Void> deleteCarById(@PathVariable Long carId) {
         if (carService.deleteCarById(carId)) {
@@ -36,13 +36,13 @@ public class CarController {
         return ResponseEntity.notFound().build();
     }
 
-    @Operation(summary = "Add a new car // Admin")
+    @Operation(summary = "Add a new car // ADMIN")
     @PostMapping
     public Car saveCar(@RequestBody Car car) {
         return carService.saveCar(car);
     }
 
-    @Operation(summary = "Update a car // Admin")
+    @Operation(summary = "Update a car // ADMIN")
     @PutMapping("/{carId}")
     public ResponseEntity<Car> updateCar(@RequestBody Car updatedCar, @PathVariable Long carId) {
         Car car = carService.updateCar(updatedCar, carId);

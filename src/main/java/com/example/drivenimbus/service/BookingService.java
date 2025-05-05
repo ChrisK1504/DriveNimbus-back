@@ -4,7 +4,6 @@ package com.example.drivenimbus.service;
 import com.example.drivenimbus.model.Booking;
 import com.example.drivenimbus.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,10 +43,10 @@ public class BookingService {
     }
 
     public List<Booking> fetchBookingsByUserId(Long userId) {
-        return bookingRepository.findByUserUserId(userId);
+        return bookingRepository.findByUserUserID(userId);
     }
 
     public List<Booking> fetchBookingsByUserIdAndUpcoming(Long userId) {
-        return bookingRepository.findByUserIdAndPickupDateAfter(userId, java.time.LocalDate.now());
+        return bookingRepository.findByUserUserIDAndPickupDateAfter(userId, java.time.LocalDate.now());
     }
 }

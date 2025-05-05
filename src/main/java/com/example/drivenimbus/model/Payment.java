@@ -8,19 +8,19 @@ import java.util.Date;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long PaymentID;
+    private Long paymentID;
 
     @OneToOne
-    @JoinColumn(name = "bookingID", nullable = false)
+//    @JoinColumn(name = "bookingID", nullable = false)
     private Booking booking;
 
-    private double Amount;
+    private double amount;
 
     @Enumerated(EnumType.STRING)
-    private Method PaymentMethod;
+    private Method paymentMethod;
     @Enumerated(EnumType.STRING)
-    private PayStatus PaymentStatus;
-    private Date PaidAt;
+    private PayStatus paymentStatus;
+    private Date paidAt;
 
     // Default constructor
     public Payment() {
@@ -29,17 +29,17 @@ public class Payment {
     // Parameterized constructor
     public Payment(Long paymentID, Booking booking, Double amount,
                   Method paymentMethod, PayStatus paymentStatus, Date paidAt) {
-        this.PaymentID = paymentID;
+        this.paymentID = paymentID;
         this.booking = booking;
-        this.Amount = amount;
-        this.PaymentMethod = paymentMethod;
-        this.PaymentStatus = paymentStatus;
-        this.PaidAt = paidAt;
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.paymentStatus = paymentStatus;
+        this.paidAt = paidAt;
     }
 
     // Getters
     public Long getPaymentID() {
-        return PaymentID;
+        return paymentID;
     }
 
     public Booking getBooking() {
@@ -47,24 +47,24 @@ public class Payment {
     }
 
     public double getAmount() {
-        return Amount;
+        return amount;
     }
 
     public Method getPaymentMethod() {
-        return PaymentMethod;
+        return paymentMethod;
     }
 
     public PayStatus getPaymentStatus() {
-        return PaymentStatus;
+        return paymentStatus;
     }
 
     public Date getPaidAt() {
-        return PaidAt;
+        return paidAt;
     }
 
     // Setters
     public void setPaymentID(Long paymentID) {
-        this.PaymentID = paymentID;
+        this.paymentID = paymentID;
     }
 
     public void setBooking(Booking booking) {
@@ -72,18 +72,18 @@ public class Payment {
     }
 
     public void setAmount(double amount) {
-        this.Amount = amount;
+        this.amount = amount;
     }
 
     public void setPaymentMethod(Method paymentMethod) {
-        this.PaymentMethod = paymentMethod;
+        this.paymentMethod = paymentMethod;
     }
 
     public void setPaymentStatus(PayStatus paymentStatus) {
-        this.PaymentStatus = paymentStatus;
+        this.paymentStatus = paymentStatus;
     }
 
     public void setPaidAt(Date paidAt) {
-        this.PaidAt = paidAt;
+        this.paidAt = paidAt;
     }
 }

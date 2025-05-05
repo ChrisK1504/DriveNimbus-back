@@ -75,7 +75,7 @@ public class UserService {
     }
 
     public void confirmLogin(UserLoginDTO loginRequest) {
-        Optional<Users> userOpt = userRepository.findByEmail(loginRequest.getEmail());
+        Optional<Users> userOpt = userRepository.findByemail(loginRequest.getEmail());
         if (userOpt.isEmpty()) {
             throw new RuntimeException("Invalid email or password");
         }
@@ -91,7 +91,7 @@ public class UserService {
     }
 
     public boolean changePasswordRequest(String email) {
-        Optional<Users> userOpt = userRepository.findByEmail(email);
+        Optional<Users> userOpt = userRepository.findByemail(email);
         if (userOpt.isEmpty()) {
             return false;
         }

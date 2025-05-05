@@ -3,22 +3,21 @@ package com.example.drivenimbus.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class DiscountCode {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long CodeID;
+    private Long codeID;
 
     @ManyToOne
-    @JoinColumn(name = "bookingID", nullable = false)
+//    @JoinColumn(name = "bookingID", nullable = false)
     private Booking booking;
 
-    private String DiscountCode;
-    private Double DiscountAmount;
-    private LocalDate ExpiryDate;
-    private Boolean IsActive;
+    private String discountCode;
+    private Double discountAmount;
+    private LocalDate expiryDate;
+    private Boolean isActive;
 
     // Default constructor
     public DiscountCode() {
@@ -26,51 +25,51 @@ public class DiscountCode {
 
     // Constructor with all fields
     public DiscountCode(Long codeID, String discountCode, Double discountAmount, LocalDate expiryDate, Boolean isActive) {
-        CodeID = codeID;
-        DiscountCode = discountCode;
-        DiscountAmount = discountAmount;
-        ExpiryDate = expiryDate;
-        IsActive = isActive;
+        this.codeID = codeID;
+        this.discountCode = discountCode;
+        this.discountAmount = discountAmount;
+        this.expiryDate = expiryDate;
+        this.isActive = isActive;
     }
 
     public Long getCodeID() {
-        return CodeID;
+        return codeID;
     }
 
     public void setCodeID(Long codeID) {
-        CodeID = codeID;
+        this.codeID = codeID;
     }
 
     public String getDiscountCode() {
-        return DiscountCode;
+        return discountCode;
     }
 
     public void setDiscountCode(String discountCode) {
-        DiscountCode = discountCode;
+        this.discountCode = discountCode;
     }
 
     public Double getDiscountAmount() {
-        return DiscountAmount;
+        return discountAmount;
     }
 
     public void setDiscountAmount(Double discountAmount) {
-        DiscountAmount = discountAmount;
+        this.discountAmount = discountAmount;
     }
 
     public LocalDate getExpiryDate() {
-        return ExpiryDate;
+        return expiryDate;
     }
 
     public void setExpiryDate(LocalDate expiryDate) {
-        ExpiryDate = expiryDate;
+        this.expiryDate = expiryDate;
     }
 
     public Boolean getIsActive() {
-        return IsActive;
+        return isActive;
     }
 
     public void setIsActive(Boolean isActive) {
-        IsActive = isActive;
+        this.isActive = isActive;
     }
 
     public Booking getBooking() {

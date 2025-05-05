@@ -50,12 +50,12 @@ public class BookingControllerMockTest {
         Car car = new Car();
         car.setBrand("Toyota");
         car.setModel("Yaris");
-        car.setCarID(1L);
+        car.setCarId(1L);
 
         Car car2 = new Car();
         car2.setBrand("Honda");
         car2.setModel("Civic");
-        car2.setCarID(2L);
+        car2.setCarId(2L);
 
         Users user = new Users();
         user.setFullName("Chris");
@@ -68,21 +68,21 @@ public class BookingControllerMockTest {
         booking = new Booking();
         booking.setCar(car);
         booking.setUser(user);
-        booking.setBookingID(1L);
+        booking.setBookingId(1L);
         booking.setPickupDate(LocalDate.of(2025, 5, 5));
         booking.setReturnDate(LocalDate.of(2025, 5, 10));
 
         booking2 = new Booking();
         booking2.setCar(car2);
         booking2.setUser(user);
-        booking2.setBookingID(2L);
+        booking2.setBookingId(2L);
         booking2.setPickupDate(LocalDate.of(2025, 2, 15));
         booking2.setReturnDate(LocalDate.of(2025, 2, 20));
 
         booking3 = new Booking();
         booking3.setCar(car);
         booking3.setUser(user2);
-        booking3.setBookingID(3L);
+        booking3.setBookingId(3L);
         booking3.setPickupDate(LocalDate.of(2025, 5, 25));
         booking3.setReturnDate(LocalDate.of(2025, 5, 30));
 
@@ -133,7 +133,7 @@ public class BookingControllerMockTest {
     void shouldUpdateBooking() throws Exception {
         Long bookingId = 1L;
         Booking updatedBooking = new Booking();
-        updatedBooking.setBookingID(1L);
+        updatedBooking.setBookingId(1L);
         updatedBooking.setPickupDate(LocalDate.of(2025, 5, 15));
         updatedBooking.setReturnDate(LocalDate.of(2025, 5, 20));
         Mockito.when(bookingService.updateBooking(any(Booking.class), eq(bookingId))).thenReturn(updatedBooking);

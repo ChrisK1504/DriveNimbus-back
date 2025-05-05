@@ -1,9 +1,7 @@
 package com.example.drivenimbus.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -12,81 +10,81 @@ import java.util.Date;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BookingID;
+    private Long bookingId;
 
     @ManyToOne
-    @JoinColumn(name = "carID", nullable = false)
+//    @JoinColumn(name = "carID", nullable = false)
     private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+//    @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate PickupDate;
+    private LocalDate pickupDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate ReturnDate;
+    private LocalDate returnDate;
 
     @Enumerated(EnumType.STRING)
-    private Status BookingStatus;
-    private Date CreatedAt;
+    private Status bookingStatus;
+    private Date createdAt;
 
     // Default constructor
     public Booking() {
     }
 
     // Parameterized constructor
-    public Booking(Users user, Car car,Long bookingID, LocalDate pickupDate, LocalDate returnDate,
-                  Status bookingStatus, Date createdAt) {
+    public Booking(Users user, Car car, Long bookingId, LocalDate pickupDate, LocalDate returnDate,
+                   Status bookingStatus) {
         this.user = user;
         this.car = car;
-        this.BookingID = bookingID;
-        this.PickupDate = pickupDate;
-        this.ReturnDate = returnDate;
-        this.BookingStatus = bookingStatus;
-        this.CreatedAt = createdAt;
+        this.bookingId = bookingId;
+        this.pickupDate = pickupDate;
+        this.returnDate = returnDate;
+        this.bookingStatus = bookingStatus;
+        this.createdAt = new Date();
     }
 
     // Getters
-    public Long getBookingID() {
-        return BookingID;
+    public Long getBookingId() {
+        return bookingId;
     }
 
     public LocalDate getPickupDate() {
-        return PickupDate;
+        return pickupDate;
     }
 
     public LocalDate getReturnDate() {
-        return ReturnDate;
+        return returnDate;
     }
 
     public Status getBookingStatus() {
-        return BookingStatus;
+        return bookingStatus;
     }
 
     public Date getCreatedAt() {
-        return CreatedAt;
+        return createdAt;
     }
 
     // Setters
-    public void setBookingID(Long bookingID) {
-        this.BookingID = bookingID;
+    public void setBookingId(Long bookingID) {
+        this.bookingId = bookingID;
     }
 
     public void setPickupDate(LocalDate pickupDate) {
-        this.PickupDate = pickupDate;
+        this.pickupDate = pickupDate;
     }
 
     public void setReturnDate(LocalDate returnDate) {
-        this.ReturnDate = returnDate;
+        this.returnDate = returnDate;
     }
 
     public void setBookingStatus(Status bookingStatus) {
-        this.BookingStatus = bookingStatus;
+        this.bookingStatus = bookingStatus;
     }
 
     public void setCreatedAt(Date createdAt) {
-        this.CreatedAt = createdAt;
+        this.createdAt = createdAt;
     }
 
     public Users getUser() {
