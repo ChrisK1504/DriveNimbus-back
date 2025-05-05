@@ -18,7 +18,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationRequestDTO request) {
         userService.registerUser(request);
-        return ResponseEntity.ok("Registration successful.Please check your email");
+        return ResponseEntity.status(201).body("Registration successful.Please check your email");
     }
 
     @Operation(summary = "Verify confirmation email")
@@ -32,6 +32,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO loginRequest) {
         userService.confirmLogin(loginRequest);
-        return ResponseEntity.ok("Login successful");
+        return ResponseEntity.status(201).body("Login successful");
     }
 }

@@ -3,6 +3,8 @@ package com.example.drivenimbus.controller;
 import com.example.drivenimbus.model.Car;
 import com.example.drivenimbus.service.CarService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,8 @@ public class CarController {
 
     @Operation(summary = "Get all cars")
     @GetMapping
-    public List<Car> getAllCars() {
-        return carService.fetchCarList();
+    public ResponseEntity<List<Car>> getAllCars() {
+        return ResponseEntity.ok(carService.fetchCarList());
     }
 
     @Operation(summary = "Get a specific car by ID")
@@ -33,13 +35,13 @@ public class CarController {
         if (carService.deleteCarById(carId)) {
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Add a new car // ADMIN")
     @PostMapping
-    public Car saveCar(@RequestBody Car car) {
-        return carService.saveCar(car);
+    public ResponseEntity<Car> saveCar(@Valid @RequestBody Car car) {
+        return ResponseEntity.status(201).body(carService.saveCar(car));
     }
 
     @Operation(summary = "Update a car // ADMIN")

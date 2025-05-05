@@ -29,7 +29,7 @@ public class ReviewController {
     @PostMapping("/cars/{carId}")
     public ResponseEntity<Review> addReview(@RequestBody ReviewDTO reviewDTO, @PathVariable Long carId, @RequestParam Long userId) {
         Review newReview = reviewService.saveReview(reviewDTO, carId, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body( newReview );
+        return ResponseEntity.status(201).body( newReview );
     }
 
     @Operation(summary = "List all reviews for a carID")

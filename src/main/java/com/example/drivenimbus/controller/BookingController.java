@@ -27,7 +27,7 @@ public class BookingController {
 
     @Operation(summary = "Get all bookings")
     @GetMapping("/bookings")
-    public ResponseEntity<Iterable<Booking>> getAllBookings() {
+    public ResponseEntity<List<Booking>> getAllBookings() {
         return ResponseEntity.ok(bookingService.fetchAllBookings());
     }
 
@@ -69,15 +69,15 @@ public class BookingController {
 
     @Operation(summary = "List bookings for a specific userId")
     @GetMapping("/users/{userId}/bookings")
-    public ResponseEntity<Iterable<Booking>> getBookingsByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<Booking>> getBookingsByUserId(@PathVariable Long userId) {
         List<Booking> bookings = bookingService.fetchBookingsByUserId(userId);
-        return bookings.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookings);
+        return bookings.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(bookings);
     }
 
 
     @Operation(summary = "View only future bookings of a specific userId")
     @GetMapping("/users/{userId}/bookings/upcoming")
-    public ResponseEntity<Iterable<Booking>> getBookingsByUserIdAndUpcoming(@PathVariable Long userId) {
+    public ResponseEntity<List<Booking>> getBookingsByUserIdAndUpcoming(@PathVariable Long userId) {
         List<Booking> bookings = bookingService.fetchBookingsByUserIdAndUpcoming(userId);
         return bookings.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookings);
     }
@@ -86,7 +86,7 @@ public class BookingController {
     @PostMapping("/users/{userId}/bookings")
     public ResponseEntity<Booking> createBooking(@Validated @RequestBody Booking booking) {
         bookingService.saveBooking(booking);
-        return ResponseEntity.ok(booking);
+        return ResponseEntity.status(201).body(booking);
     }
 
 

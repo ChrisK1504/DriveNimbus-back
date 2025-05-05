@@ -24,8 +24,8 @@ public class UserController {
 
     @Operation(summary = "Fetch all users // ADMIN")
     @GetMapping
-    public List<Users> getAllUsers() {
-        return userService.fetchAllUsers();
+    public ResponseEntity<List<Users>> getAllUsers() {
+        return ResponseEntity.ok(userService.fetchAllUsers());
     }
 
     @Operation(summary = "Fetch user by userID // ADMIN")
@@ -39,7 +39,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Users> saveUser(@RequestBody Users user) {
         userService.saveUser(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.status(201).body(user);
     }
 
     @Operation(summary = "Update user's details // ADMIN")
