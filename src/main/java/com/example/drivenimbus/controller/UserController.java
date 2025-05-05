@@ -1,10 +1,7 @@
 package com.example.drivenimbus.controller;
-
-import com.example.drivenimbus.dto.UserRegistrationRequestDTO;
 import com.example.drivenimbus.model.Users;
 import com.example.drivenimbus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +58,11 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{userId}/deactivate")
+    public ResponseEntity<String> deactivateUserById(@PathVariable Long userId) {
+        boolean deactivationSuccess = userService.deactivateUser(userId);
+        return deactivationSuccess ? ResponseEntity.ok("User deactivated") : ResponseEntity.notFound().build();
+    }
     // TODO Add endpoints for CLIENT USERS (AUTHENTICATION IMPLEMENTATION)
 
 }

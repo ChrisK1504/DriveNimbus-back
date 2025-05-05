@@ -122,11 +122,11 @@ public class BookingControllerMockTest {
     void shouldDeleteBooking() throws Exception {
         Long bookingId = 1L;
 
-        Mockito.when(bookingService.deleteBookingById(bookingId)).thenReturn(true);
+        Mockito.when(bookingService.cancelBooking(booking)).thenReturn(true);
         mockMvc.perform(delete("/bookings/{id}", bookingId))
                 .andExpect(status().isOk());
 
-        Mockito.verify(bookingService, Mockito.times(1)).deleteBookingById(bookingId);
+        Mockito.verify(bookingService, Mockito.times(1)).cancelBooking(booking);
     }
 
     @Test

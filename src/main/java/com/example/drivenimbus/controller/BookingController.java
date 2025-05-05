@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,7 @@ public class BookingController {
 //    DELETE | /bookings/{id} | Cancel/delete a booking
 
     @Operation(summary = "Get all bookings")
-    @GetMapping
+    @GetMapping("/bookings")
     public ResponseEntity<Iterable<Booking>> getAllBookings() {
         return ResponseEntity.ok(bookingService.fetchAllBookings());
     }
@@ -37,20 +39,21 @@ public class BookingController {
     }
 
 
-    @Operation(summary = "Create a new booking (User ID not needed as you are supplying the User data completely")
-    @PostMapping
-    public ResponseEntity<Booking> createBooking(@Validated @RequestBody Booking booking) {
-        bookingService.saveBooking(booking);
-        return ResponseEntity.ok(booking);
-    }
-
     @Operation(summary = "Cancel/delete a booking")
     @DeleteMapping("/bookings/{bookingId}")
-    public ResponseEntity<Booking> deleteBookingById(@PathVariable Long bookingId) {
-        if (bookingService.deleteBookingById(bookingId)) {
-            return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteBookingById(@PathVariable Long bookingId) {
+        Booking booking = bookingService.fetchBookingById(bookingId);
+
+        if (booking == null) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+
+        if (booking.getPickupDate().isBefore(LocalDate.now())) {
+            return ResponseEntity.badRequest().body("Booking is past the cancelation period");
+        }
+
+        boolean cancellationSuccessful = bookingService.cancelBooking(booking);
+        return cancellationSuccessful ? ResponseEntity.ok().build() : ResponseEntity.status(400).body("Booking could not be cancelled");
     }
 
     @Operation(summary = "Update a booking (e.g., reschedule)")
@@ -64,7 +67,7 @@ public class BookingController {
 //    GET | /users/{userId}/bookings | List bookings for a specific user
 //    GET | /users/{userId}/bookings/upcoming | View only future bookings
 
-    @Operation(summary = "List bookings for a specific user")
+    @Operation(summary = "List bookings for a specific userId")
     @GetMapping("/users/{userId}/bookings")
     public ResponseEntity<Iterable<Booking>> getBookingsByUserId(@PathVariable Long userId) {
         List<Booking> bookings = bookingService.fetchBookingsByUserId(userId);
@@ -72,11 +75,18 @@ public class BookingController {
     }
 
 
-    @Operation(summary = "View only future bookings of a specific user")
+    @Operation(summary = "View only future bookings of a specific userId")
     @GetMapping("/users/{userId}/bookings/upcoming")
     public ResponseEntity<Iterable<Booking>> getBookingsByUserIdAndUpcoming(@PathVariable Long userId) {
         List<Booking> bookings = bookingService.fetchBookingsByUserIdAndUpcoming(userId);
         return bookings.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookings);
+    }
+
+    @Operation(summary = "Create a new booking for a specific userId")
+    @PostMapping("/users/{userId}/bookings")
+    public ResponseEntity<Booking> createBooking(@Validated @RequestBody Booking booking) {
+        bookingService.saveBooking(booking);
+        return ResponseEntity.ok(booking);
     }
 
 

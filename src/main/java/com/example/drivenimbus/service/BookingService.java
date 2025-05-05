@@ -2,7 +2,11 @@ package com.example.drivenimbus.service;
 
 
 import com.example.drivenimbus.model.Booking;
+import com.example.drivenimbus.model.Car;
+import com.example.drivenimbus.model.State;
+import com.example.drivenimbus.model.Status;
 import com.example.drivenimbus.repository.BookingRepository;
+import com.example.drivenimbus.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,9 @@ public class BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private CarRepository carRepository;
 
     public Booking fetchBookingById(Long bookingId) {
         return bookingRepository.findById(bookingId).orElse(null);
@@ -26,12 +33,20 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
-    public Boolean deleteBookingById(Long bookingId) {
-        if (bookingRepository.existsById(bookingId)) {
-            bookingRepository.deleteById(bookingId);
-            return true;
+    // TODO COME BACK TO THIS WHEN PAYMENT ENTITY BECOMES IMPORTANT
+    public Boolean cancelBooking(Booking booking) {
+        if (booking.getPickupDate().isAfter(java.time.LocalDate.now())) {
+            updateCarAvailability(booking.getCar());
+
+            booking.setBookingStatus(Status.CANCELLED);
+            return bookingRepository.save(booking) != null;
         }
         return false;
+    }
+
+    private void updateCarAvailability(Car car) {
+        car.setStatus(State.AVAILABLE);
+        carRepository.save(car);
     }
 
     public Booking updateBooking(Booking updatedBooking, Long bookingId) {

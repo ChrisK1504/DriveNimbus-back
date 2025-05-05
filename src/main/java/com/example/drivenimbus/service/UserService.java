@@ -169,4 +169,15 @@ public class UserService {
             return userRepository.save(user);
         }).orElse(null);
     }
+
+    public boolean deactivateUser(Long userId) {
+        Optional<Users> userOpt = userRepository.findById(userId);
+        if (userOpt.isPresent()) {
+            Users user = userOpt.get();
+            user.setActive(false);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 }
