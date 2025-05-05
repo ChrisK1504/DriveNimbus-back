@@ -5,6 +5,7 @@ import com.example.drivenimbus.dto.UserRegistrationRequestDTO;
 import com.example.drivenimbus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+
     @Operation(summary = "Handle a new user trying to register request")
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationRequestDTO request) {
@@ -21,6 +23,7 @@ public class AuthController {
         return ResponseEntity.status(201).body("Registration successful.Please check your email");
     }
 
+    @Order(1)
     @Operation(summary = "Verify confirmation email")
     @GetMapping("/confirm")
     public ResponseEntity<String> confirmUser(@RequestParam String token) {

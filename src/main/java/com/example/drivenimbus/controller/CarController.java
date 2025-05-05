@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +17,14 @@ import java.util.List;
 public class CarController {
     @Autowired private CarService carService;
 
+    @Order(1)
     @Operation(summary = "Get all cars")
     @GetMapping
     public ResponseEntity<List<Car>> getAllCars() {
         return ResponseEntity.ok(carService.fetchCarList());
     }
 
+    @Order(2)
     @Operation(summary = "Get a specific car by ID")
     @GetMapping("/{carId}")
     public ResponseEntity<Car> getCarById(@PathVariable Long carId) {
@@ -29,6 +32,7 @@ public class CarController {
         return car != null ? ResponseEntity.ok(car) : ResponseEntity.notFound().build();
     }
 
+    @Order(3)
     @Operation(summary = "Delete a car by ID // ADMIN")
     @DeleteMapping("/{carId}")
     public ResponseEntity<Void> deleteCarById(@PathVariable Long carId) {
@@ -38,12 +42,14 @@ public class CarController {
         return ResponseEntity.noContent().build();
     }
 
+    @Order(5)
     @Operation(summary = "Add a new car // ADMIN")
     @PostMapping
     public ResponseEntity<Car> saveCar(@Valid @RequestBody Car car) {
         return ResponseEntity.status(201).body(carService.saveCar(car));
     }
 
+    @Order(4)
     @Operation(summary = "Update a car // ADMIN")
     @PutMapping("/{carId}")
     public ResponseEntity<Car> updateCar(@RequestBody Car updatedCar, @PathVariable Long carId) {

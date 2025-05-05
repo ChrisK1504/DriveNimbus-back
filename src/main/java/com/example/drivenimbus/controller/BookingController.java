@@ -4,6 +4,7 @@ import com.example.drivenimbus.model.Booking;
 import com.example.drivenimbus.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +25,14 @@ public class BookingController {
 //    PUT | /bookings/{id} | Update a booking (e.g., reschedule)
 //    DELETE | /bookings/{id} | Cancel/delete a booking
 
+    @Order(1)
     @Operation(summary = "Get all bookings")
     @GetMapping("/bookings")
     public ResponseEntity<List<Booking>> getAllBookings() {
         return ResponseEntity.ok(bookingService.fetchAllBookings());
     }
 
+    @Order(2)
     @Operation(summary = "Get a specific booking by ID")
     @GetMapping("/bookings/{bookingId}")
     public ResponseEntity<Booking> getBookingById(@PathVariable Long bookingId) {
@@ -38,6 +41,7 @@ public class BookingController {
     }
 
 
+    @Order(5)
     @Operation(summary = "Cancel/delete a booking")
     @DeleteMapping("/bookings/{bookingId}")
     public ResponseEntity<?> deleteBookingById(@PathVariable Long bookingId) {
@@ -55,6 +59,7 @@ public class BookingController {
         return cancellationSuccessful ? ResponseEntity.ok().build() : ResponseEntity.status(400).body("Booking could not be cancelled");
     }
 
+    @Order(6)
     @Operation(summary = "Update a booking (e.g., reschedule)")
     @PutMapping("/bookings/{bookingId}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long bookingId, @Validated @RequestBody Booking updatedBooking) {
@@ -66,6 +71,7 @@ public class BookingController {
 //    GET | /users/{userId}/bookings | List bookings for a specific user
 //    GET | /users/{userId}/bookings/upcoming | View only future bookings
 
+    @Order(3)
     @Operation(summary = "List bookings for a specific userId")
     @GetMapping("/users/{userId}/bookings")
     public ResponseEntity<List<Booking>> getBookingsByUserId(@PathVariable Long userId) {
@@ -74,6 +80,7 @@ public class BookingController {
     }
 
 
+    @Order(4)
     @Operation(summary = "View only future bookings of a specific userId")
     @GetMapping("/users/{userId}/bookings/upcoming")
     public ResponseEntity<List<Booking>> getBookingsByUserIdAndUpcoming(@PathVariable Long userId) {
@@ -81,6 +88,7 @@ public class BookingController {
         return bookings.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(bookings);
     }
 
+    @Order(9)
     @Operation(summary = "Create a new booking for a specific userId")
     @PostMapping("/users/{userId}/bookings")
     public ResponseEntity<Booking> createBooking(@Validated @RequestBody Booking booking) {
@@ -88,6 +96,7 @@ public class BookingController {
         return ResponseEntity.status(201).body(booking);
     }
 
+    @Order(7)
     @Operation(summary = "Approve/process a booking")
     @PutMapping("/bookings/{bookingId}/approve")
     public ResponseEntity<String> approveBooking(@PathVariable Long bookingId) {
@@ -95,6 +104,7 @@ public class BookingController {
         return approvalSuccess ? ResponseEntity.status(201).body("Booking approved") : ResponseEntity.status(404).body("Booking not found or already processed");
     }
 
+    @Order(8)
     @Operation(summary = "Reject/refuse a booking")
     @PutMapping("/bookings/{bookingId}/refuse")
     public ResponseEntity<String> refuseBooking(@PathVariable Long bookingId) {

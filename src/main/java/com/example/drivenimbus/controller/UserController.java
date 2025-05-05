@@ -3,6 +3,7 @@ import com.example.drivenimbus.model.Users;
 import com.example.drivenimbus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +23,14 @@ public class UserController {
 //    PUT | /users/{id} | Update a user's details
 //    DELETE | /users/{id} | Delete a user
 
+    @Order(1)
     @Operation(summary = "Fetch all users // ADMIN")
     @GetMapping
     public ResponseEntity<List<Users>> getAllUsers() {
         return ResponseEntity.ok(userService.fetchAllUsers());
     }
 
+    @Order(2)
     @Operation(summary = "Fetch user by userID // ADMIN")
     @GetMapping("/{userId}")
     public ResponseEntity<Users> getUserById(@PathVariable Long userId) {
@@ -35,6 +38,7 @@ public class UserController {
         return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 
+    @Order(6)
     @Operation(summary = "Create a new user // ADMIN")
     @PostMapping
     public ResponseEntity<Users> saveUser(@RequestBody Users user) {
@@ -42,6 +46,7 @@ public class UserController {
         return ResponseEntity.status(201).body(user);
     }
 
+    @Order(4)
     @Operation(summary = "Update user's details // ADMIN")
     @PutMapping("/{userId}")
     public ResponseEntity<Users> updateUser(@RequestBody Users updatedUser, @PathVariable Long userId) {
@@ -49,6 +54,7 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @Order(3)
     @Operation(summary = "Delete user by userID // ADMIN")
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUserById(@PathVariable Long userId) {
@@ -58,6 +64,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
+    @Order(5)
     @PutMapping("/{userId}/deactivate")
     public ResponseEntity<String> deactivateUserById(@PathVariable Long userId) {
         boolean deactivationSuccess = userService.deactivateUser(userId);

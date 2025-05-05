@@ -6,6 +6,7 @@ import com.example.drivenimbus.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +19,8 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
-//    | Endpoint                     | Controller         | Responsibility             |
-//            | ---------------------------- | ------------------ | -------------------------- |
-//            | `POST /cars/{carId}/reviews` | `ReviewController` | Add a review for a car     |
-//            | `GET /cars/{carId}/reviews`  | `ReviewController` | List all reviews for a car |
-//            | `PUT /reviews/{reviewId}`    | `ReviewController` | Update a specific review   |
-//            | `DELETE /reviews/{reviewId}` | `ReviewController` | Delete a specific review   |
 
+    @Order(6)
     @Operation(summary = "Create a new review for a carID, with a specified userID")
     @PostMapping("/cars/{carId}")
     public ResponseEntity<Review> addReview(@RequestBody ReviewDTO reviewDTO, @PathVariable Long carId, @RequestParam Long userId) {
@@ -32,6 +28,7 @@ public class ReviewController {
         return ResponseEntity.status(201).body( newReview );
     }
 
+    @Order(1)
     @Operation(summary = "List all reviews for a carID")
     @GetMapping("/cars/{carId}")
     public ResponseEntity<List<Review>> getReviewsByCarId(@PathVariable Long carId) {
@@ -39,6 +36,7 @@ public class ReviewController {
         return reviews.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(reviews);
     }
 
+    @Order(5)
     @Operation(summary = "Update a review directly using reviewID")
     @PutMapping("/{reviewId}")
     public ResponseEntity<Review> updateReview(@RequestBody ReviewDTO reviewDTO, @PathVariable Long reviewId) {
@@ -49,6 +47,7 @@ public class ReviewController {
         return ResponseEntity.notFound().build();
     }
 
+    @Order(4)
     @Operation(summary = "Delete a review directly using reviewID")
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
@@ -58,6 +57,7 @@ public class ReviewController {
         return ResponseEntity.notFound().build();
     }
 
+    @Order(2)
     @Operation(summary = "List all reviews for a userID")
     @GetMapping("users/{userId}")
     public ResponseEntity<List<Review>> getReviewByUserId(@PathVariable Long userId) {
@@ -65,6 +65,7 @@ public class ReviewController {
         return reviewList.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(reviewList);
     }
 
+    @Order(3)
     @Operation(summary = "General fetch operation to use with query parameters")
     @GetMapping
     public ResponseEntity<List<Review>> getReviewByCarIdAndUserId(@RequestParam(required = false) Long userId, @RequestParam(required = false) Long carId) {
