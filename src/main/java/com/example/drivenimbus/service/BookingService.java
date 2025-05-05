@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -63,5 +64,32 @@ public class BookingService {
 
     public List<Booking> fetchBookingsByUserIdAndUpcoming(Long userId) {
         return bookingRepository.findByUserUserIDAndPickupDateAfter(userId, java.time.LocalDate.now());
+    }
+
+    public boolean approveBooking(Long bookingId) {
+        Optional<Booking> bookingOpt = bookingRepository.findById(bookingId);
+        if (!bookingOpt.isEmpty()) {
+            Booking booking = bookingOpt.get();
+            if (State.AVAILABLE.equals(booking.getCar().getStatus())) {
+                booking.setBookingStatus(Status.CONFIRMED);
+                bookingRepository.save(booking);
+                return true;
+            } else {
+                rejectBooking(bookingId);
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean rejectBooking(Long bookingId) {
+        Optional<Booking> bookingOpt = bookingRepository.findById(bookingId);
+        if (!bookingOpt.isEmpty()) {
+            Booking booking = bookingOpt.get();
+            booking.setBookingStatus(Status.REJECTED);
+            bookingRepository.save(booking);
+            return true;
+        }
+        return false;
     }
 }

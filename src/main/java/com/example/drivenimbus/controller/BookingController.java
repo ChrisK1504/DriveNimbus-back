@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -87,6 +86,20 @@ public class BookingController {
     public ResponseEntity<Booking> createBooking(@Validated @RequestBody Booking booking) {
         bookingService.saveBooking(booking);
         return ResponseEntity.status(201).body(booking);
+    }
+
+    @Operation(summary = "Approve/process a booking")
+    @PutMapping("/bookings/{bookingId}/approve")
+    public ResponseEntity<String> approveBooking(@PathVariable Long bookingId) {
+        boolean approvalSuccess = bookingService.approveBooking(bookingId);
+        return approvalSuccess ? ResponseEntity.status(201).body("Booking approved") : ResponseEntity.status(404).body("Booking not found or already processed");
+    }
+
+    @Operation(summary = "Reject/refuse a booking")
+    @PutMapping("/bookings/{bookingId}/refuse")
+    public ResponseEntity<String> refuseBooking(@PathVariable Long bookingId) {
+        boolean rejectionSuccess = bookingService.rejectBooking(bookingId);
+        return rejectionSuccess ? ResponseEntity.status(201).body("Booking rejected") : ResponseEntity.status(404).body("Booking not found or already processed");
     }
 
 
