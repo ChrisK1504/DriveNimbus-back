@@ -4,7 +4,6 @@ import com.example.drivenimbus.model.*;
 import com.example.drivenimbus.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
